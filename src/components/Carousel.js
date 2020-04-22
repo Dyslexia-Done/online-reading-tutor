@@ -17,25 +17,25 @@ export default class CarouselCards extends React.Component  {
           carouselItems: [
           {
               title:"Fire World",
-              text: "0/10",
-          index: 1,
+              text: "0/10", //TODO: change to state of lessons completion
+          index: 1, //TODO: use this to navigate to the right game for each world
 
           },
           {
               title:"Ice World",
-              text: "0/10",
+              text: "0/10",//TODO: change to state of lessons completion
               index: 2,
 
           },
           {
               title:"Jungle World",
-              text: "0/10",
+              text: "0/10",//TODO: change to state of lessons completion
               index: 3,
 
           },
           {
               title:"Alien World",
-              text: "0/10",
+              text: "0/10",//TODO: change to state of lessons completion
               index: 4,
 
           },
@@ -51,11 +51,11 @@ export default class CarouselCards extends React.Component  {
           <View style={{
               backgroundColor:'rebeccapurple',
               borderRadius: 5,
-              height: 250,
+        height: Dimensions.get('window').height *0.4,
               padding: 50,
               marginLeft: 25,
               marginRight: 25,
-              marginTop:  Dimensions.get('window').height/4,
+        marginTop:  Dimensions.get('window').height *0.15,
         }}>
                 <Text style={{fontSize: 30}}>{item.title}</Text>
             <Text>{item.text}</Text>
