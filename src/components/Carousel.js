@@ -2,10 +2,11 @@ import * as React from 'react';
 import {
   Text,
   View,
-  SafeAreaView, Dimensions, Button} from 'react-native';
+  SafeAreaView, Dimensions} from 'react-native';
 
 import Carousel from 'react-native-snap-carousel';
-
+// local components
+import Button from "./../components/Button"
 export default class CarouselCards extends React.Component  {
 
  
@@ -57,10 +58,8 @@ export default class CarouselCards extends React.Component  {
               marginRight: 25,
         marginTop:  Dimensions.get('window').height *0.15,
         }}>
-                <Text style={{fontSize: 30}}>{item.title}</Text>
-            <Text>{item.text}</Text>
-            
-                <Button title = "Click to Play Fire World" onPress= {() =>  this.goToFire()} />
+        <Text style={{fontSize: 30}}>{item.title}</Text>
+        <Text>{item.text}</Text>
           </View>
 
         )
@@ -68,7 +67,7 @@ export default class CarouselCards extends React.Component  {
 
     render() {
         return (
-          <SafeAreaView style={{flex: 1, backgroundColor:'black', paddingTop: 50, }}>
+                <SafeAreaView style={{flex: 1, backgroundColor:'black', paddingTop: 50, paddingBottom:100}}>
             <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
                 <Carousel
                   layout={"default"}
@@ -79,8 +78,8 @@ export default class CarouselCards extends React.Component  {
                   renderItem={this._renderItem}
                   onSnapToItem = { index => this.setState({activeIndex:index}) } />
                 
-
             </View>
+                 <Button text = "Start" onPress= {() =>  this.goToFire()} />
           </SafeAreaView>
         );
     }
