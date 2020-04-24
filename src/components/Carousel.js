@@ -88,6 +88,5 @@ export default class CarouselCards extends React.Component  {
       this.setState({
         showModal: false
       });
-      }
+    }
 }
-
