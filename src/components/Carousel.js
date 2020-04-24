@@ -19,7 +19,7 @@ export default class CarouselCards extends React.Component  {
           {
               title:"Fire World",
               text: "0/10", //TODO: change to state of lessons completion
-          index: 1, //TODO: use this to navigate to the right game for each world
+              index: 1, //TODO: use this to navigate to the right game for each world
 
           },
           {
@@ -90,5 +90,4 @@ export default class CarouselCards extends React.Component  {
       });
       }
 }
-
 
