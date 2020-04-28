@@ -3,6 +3,13 @@ import Constants from "../components/Constants.js";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { alertBadgeAcquired } from "../components/BadgeHelpers";
 
+/*TODO:
+
+1. Use better data structure for question and answers 
+2. Clear previous questiona and load next question on the screen after an answer is selected
+3. Play sound file for word when question is clicked
+4. keep track of when all 20 questions are complete (award badge at this point)
+*/
 
 SampleFunction=(item)=>{
 
