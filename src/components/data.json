@@ -1,7 +1,7 @@
 {
   "name": "bob",
   "password": "bobpass",
-  "streak": 0,
+  "streak": { "last_logged_in": "xxx", "streak_count": "-1" },
   "gameHighScore": 0,
   "BADGES": [
     [ 

@@ -23,8 +23,6 @@ function LessonScreen(props) {
             Constants.LESSON_COMPLETION_1
           );
           updateLessonAndWorldCompletion(Constants.CURRENT_LESSON_PARENT);
-          updateStreaksCount();
-          checkAndIssueStreaksBadge();
           checkAndIssueWorldBadge();
           storeWrapper();
           props.navigation.navigate("Home");

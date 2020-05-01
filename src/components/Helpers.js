@@ -142,7 +142,7 @@ export const alertBadgeAcquired = (badgeDesc) => {
   badgeName += "!";
   Alert.alert(
     "Congratulations!",
-    "You have received a " + badgeName + "\nHead to your profile to see it!",
+    badgeDesc + "\nHead to your profile to see it!",
     [
       {
         text: "OK",
@@ -231,12 +231,24 @@ export const storeData = async () => {
 };
 
 export const updateStreaksCount = () => {
-  DataObject.Data.streak = DataObject.Data.streak + 1;
+  let current_timestamp = Date.now() / 1000; // seconds
+  let last_logged_in = DataObject.Data.streak.last_logged_in;
+
+  // "streak_duration" is the duration which signifies an addition to the streak count
+  // Since we've opted for daily logins, it should be 24 * 60 * 60 seconds
+  let streak_duration = 24 * 60 * 60;
+  if(current_timestamp - last_logged_in > streak_duration) {
+    // Update the last logged in timestamp
+    DataObject.Data.streak.last_logged_in = current_timestamp;
+    DataObject.Data.streak.streak_count += 1;
+    return true;
+  }
+  return false;
 }
 
 export const checkAndIssueStreaksBadge = () => {
   // debugger;
-  let count = DataObject.Data.streak;
+  let count = DataObject.Data.streak.streak_count;
   // Index to badges array
   // [0] -> 5 day streak
   // [1] -> 10 day streak
@@ -246,17 +258,17 @@ export const checkAndIssueStreaksBadge = () => {
     case 5: 
       DataObject.Data.BADGES[Constants.STREAKS][0].badgeState = Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[Constants.STREAKS][0].badgeImage = Constants.STREAKS_5_DAY_IMG_RAW;
-      alertBadgeAcquired("5 day streak badge");
+      alertBadgeAcquired("You have received a 5-day streak badge");
       break;
     case 10:
       DataObject.Data.BADGES[Constants.STREAKS][1].badgeState = Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[Constants.STREAKS][1].badgeImage = Constants.STREAKS_10_DAY_IMG_RAW;
-      alertBadgeAcquired("10 day streak badge");
+      alertBadgeAcquired("you have received a 10-day streak badge");
       break;
     case 15:
       DataObject.Data.BADGES[Constants.STREAKS][2].badgeState = Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[Constants.STREAKS][2].badgeImage = Constants.STREAKS_15_DAY_IMG_RAW;
-      alertBadgeAcquired("15 day streak badge");
+      alertBadgeAcquired("You have received a 15-day streak badge");
       break;
     default:
       break;
@@ -272,8 +284,20 @@ export const startUp = async () => {
     if (data != null) {
       console.log("Data already exists\n");
       DataObject.Data = JSON.parse(data);
+      // Update the streak count
+      let shouldUpdateStorage = updateStreaksCount();
+      // If shouldUpdateStorage is false, that means the streak count didn't update
+      // This means, there is no real need to check whether we need to issue a badge
+      // or store the data back to the persistent storage
+      // Lets be a bit stingy and prevent unnecessary calls when we can avoid them.
+      if(shouldUpdateStorage) {
+        checkAndIssueStreaksBadge();
+        storeWrapper();
+      }
     } else {
       console.log("Data is new\n");
+      // Initialize the timestamp
+      initializeTimestamp();
       const setFirstTimeData = await AsyncStorage.setItem(
         "data",
         JSON.stringify(DataObject.Data)
@@ -283,6 +307,14 @@ export const startUp = async () => {
     console.log(e);
   }
 };
+
+// Self-explanatory
+export const initializeTimestamp = () => {
+  // While storing the data initially
+  // Set the current timestamp in seconds and set the streak count to 0
+  DataObject.Data.streak.last_logged_in = Date.now() / 1000;
+  DataObject.Data.streak.streak_count = 0;
+}
 
 // Make a call to storeData to update the storage
 export const storeWrapper = () => {
@@ -305,7 +337,7 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
   }
 
   if(! prevBadgeState)
-    alertBadgeAcquired("a lesson badge");
+    alertBadgeAcquired("You have received a badge for completing your first lesson");
 };
 
 // This function updates the number of lessons completed
@@ -316,31 +348,31 @@ export const updateLessonAndWorldCompletion = (parentWorld) => {
     case "fire_world":
       lessons_count = DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] + 1;
       // Only update if less than total lessons
-      if (lessons_count < Constants.TOTAL_LESSONS)
+      if (lessons_count <= Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] = lessons_count;
       // If we've reached the ttoal don't update anymore, just set completion status to true
-      else if (lessons_count == Constants.TOTAL_LESSONS)
+      if (lessons_count == Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.fire_world["world_completed"] = true;
       break;
     case "ice_world":
       lessons_count = DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] + 1;
-      if (lessons_count < Constants.TOTAL_LESSONS)
+      if (lessons_count <= Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] = lessons_count;
-      else if (lessons_count == Constants.TOTAL_LESSONS)
+      if (lessons_count == Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.ice_world["world_completed"] = true;
       break;
     case "jungle_world":
       lessons_count = DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] + 1;
-      if (lessons_count < Constants.TOTAL_LESSONS)
+      if (lessons_count <= Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] = lessons_count;
-      else if (lessons_count == Constants.TOTAL_LESSONS)
+      if (lessons_count == Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.jungle_world["world_completed"] = true;
       break;
     case "alien_world":
       lessons_count = DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] + 1;
-      if (lessons_count < Constants.TOTAL_LESSONS)
+      if (lessons_count <= Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] = lessons_count;
-      else if (lessons_count == Constants.TOTAL_LESSONS)
+      if (lessons_count == Constants.TOTAL_LESSONS)
         DataObject.Data.lesson_completion_per_world.alien_world["world_completed"] = true;
       break;
   }
@@ -349,24 +381,43 @@ export const updateLessonAndWorldCompletion = (parentWorld) => {
 // Sets the badgeState to true for all the worldBadges
 // if all lessons in a world are completed
 export const checkAndIssueWorldBadge = () => {
+
   // This is really bad, doing it one by one
   // but I'm tired and I don't want to think
+
+  // DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0] -> fire world
+  // DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1] -> ice world
+  // DataObject.Data.BADGES[Constants.WORLD_COMPLETION][2] -> water world
+  // DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3] -> jungle world
+  // DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4] -> alien world
+
+  // This is technically the "current" badge state of the world
+  let badgeStateFireWorld = DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeState;
+  let badgeStateIceWorld = DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeState;
+  let badgeStateJungleWorld = DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeState;
+  let badgeStateAlienWorld = DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeState;
+
+  // If all worlds have been completed, nothing to do, lets return
+  if(badgeStateFireWorld && badgeStateIceWorld && badgeStateJungleWorld && badgeStateAlienWorld)
+    return;
+
   let isFireWorldCompleted = DataObject.Data.lesson_completion_per_world.fire_world["world_completed"];
   let isIceWorldCompleted = DataObject.Data.lesson_completion_per_world.ice_world["world_completed"];
   let isJungleWorldCompleted = DataObject.Data.lesson_completion_per_world.jungle_world["world_completed"];
-  let isAlienWorldCompleted = DataObject.Data.lesson_completion_per_world.alien_world["world_completed"]
+  let isAlienWorldCompleted = DataObject.Data.lesson_completion_per_world.alien_world["world_completed"];
 
   // Update fire world badge state
-  if(isFireWorldCompleted) {
+  if(isFireWorldCompleted && !badgeStateFireWorld) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeState = Constants.BADGE_ACQUIRED;
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeImage = Constants.WORLD_COMPLETION_FIRE_IMG_RAW;
+    alertBadgeAcquired("You have received a badge for completing the Fire World");
   }
 
   // Update ice world badge state
-  if(isIceWorldCompleted) {
+  if(isIceWorldCompleted && !badgeStateIceWorld) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeState = Constants.BADGE_ACQUIRED;
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeImage = Constants.WORLD_COMPLETION_ICE_IMG_RAW;
-
+    alertBadgeAcquired("You have received a badge for completing the Ice World");
   }
 
   // *** Water World
@@ -374,15 +425,17 @@ export const checkAndIssueWorldBadge = () => {
   // *** Water World
 
   // Update jungle world badge state
-  if(isJungleWorldCompleted) {
+  if(isJungleWorldCompleted && !badgeStateJungleWorld) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeState = Constants.BADGE_ACQUIRED;
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeImage = Constants.WORLD_COMPLETION_JUNGLE_IMG_RAW;
+    alertBadgeAcquired("You have received a badge for completing the Jungle World");
   }
 
   // Update alien world badge state
-  if(isAlienWorldCompleted) {
+  if(isAlienWorldCompleted && !badgeStateAlienWorld) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeState = Constants.BADGE_ACQUIRED;
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeImage = Constants.WORLD_COMPLETION_ALIEN_IMG_RAW;
+    alertBadgeAcquired("You have receieved a badge for completing the Alien World");
   }
 }
 

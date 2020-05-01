@@ -37,28 +37,28 @@ export default Constants = {
 
   // Individual Badge Badges
   WORLD_COMPLETION_FIRE: 1,
-  WORLD_COMPLETION_FIRE_IMG: require("../assets/badges/lesson_completion.png"),
-  WORLD_COMPLETION_FIRE_IMG_RAW: "../assets/badges/lesson_completion.png",
+  WORLD_COMPLETION_FIRE_IMG: require("../assets/badges/world_completion.png"),
+  WORLD_COMPLETION_FIRE_IMG_RAW: "../assets/badges/world_completion.png",
   WORLD_COMPLETION_FIRE_BADGE: "Fire World Completed",
 
   WORLD_COMPLETION_ICE: 2,
-  WORLD_COMPLETION_ICE_IMG: require("../assets/badges/lesson_completion.png"),
-  WORLD_COMPLETION_ICE_IMG_RAW: "../assets/badges/lesson_completion.png",
+  WORLD_COMPLETION_ICE_IMG: require("../assets/badges/world_completion.png"),
+  WORLD_COMPLETION_ICE_IMG_RAW: "../assets/badges/world_completion.png",
   WORLD_COMPLETION_ICE_BADGE: "Ice World Completed",
 
   WORLD_COMPLETION_WATER: 3,
-  WORLD_COMPLETION_WATER_IMG: require("../assets/badges/lesson_completion.png"),
-  WORLD_COMPLETION_WATER_IMG_RAW: "../assets/badges/lesson_completion.png",
+  WORLD_COMPLETION_WATER_IMG: require("../assets/badges/world_completion.png"),
+  WORLD_COMPLETION_WATER_IMG_RAW: "../assets/badges/world_completion.png",
   WORLD_COMPLETION_WATER_BADGE: "Water World Complete",
 
   WORLD_COMPLETION_JUNGLE: 4,
-  WORLD_COMPLETION_JUNGLE_IMG: require("../assets/badges/lesson_completion.png"),
-  WORLD_COMPLETION_JUNGLE_IMG_RAW: "../assets/badges/lesson_completion.png",
+  WORLD_COMPLETION_JUNGLE_IMG: require("../assets/badges/world_completion.png"),
+  WORLD_COMPLETION_JUNGLE_IMG_RAW: "../assets/badges/world_completion.png",
   WORLD_COMPLETION_JUNGLE_BADGE: "Jungle World Complete",
 
   WORLD_COMPLETION_ALIEN: 5,
-  WORLD_COMPLETION_ALIEN_IMG: require("../assets/badges/lesson_completion.png"),
-  WORLD_COMPLETION_ALIEN_IMG_RAW: "../assets/badges/lesson_completion.png",
+  WORLD_COMPLETION_ALIEN_IMG: require("../assets/badges/world_completion.png"),
+  WORLD_COMPLETION_ALIEN_IMG_RAW: "../assets/badges/world_completion.png",
   WORLD_COMPLETION_ALIEN_BADGE: "Alien World Complete",
 
   // Individual Streaks Completion Badges
