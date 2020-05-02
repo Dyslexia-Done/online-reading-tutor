@@ -68,6 +68,10 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate("Badges")}
         />
         <Button
+          text="Profile"
+          onPress={() => this.props.navigation.navigate("Profile")}
+        />
+        <Button
           text="click here for modal"
           onPress={() => this.toggleEditState()}
         />

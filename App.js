@@ -10,6 +10,7 @@ import BadgeScreen from "./src/screens/BadgeScreen";
 import GameScreen from "./src/screens/GameScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LessonMapScreen from "./src/screens/LessonMapScreen";
+import Profile from "./src/screens/ProfileScreen";
 import LessonScreen from "./src/screens/LessonScreen";
 import MinigameScreen from "./src/screens/MinigameScreen";
 
@@ -45,6 +46,11 @@ function App() {
           name="Lessons"
           options={{ title: "Lessons" }}
           component={LessonMapScreen}
+        />
+        <Stack.Screen
+          name="Profile"
+          options={{ title: "Profile" }}
+          component={Profile}
         />
         <Stack.Screen
           name="Game"
