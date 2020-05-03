@@ -5,7 +5,7 @@ import { Text, TouchableOpacity } from "react-native";
 import globalStyles from "../styles/global";
 
 
-export const Button = (props) => (
+export const StartButton = (props) => (
   <TouchableOpacity
     style={globalStyles.primaryBtn}
     onPress={props.onPress}

@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, Image} from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, Image, Button} from "react-native";
 
 // local components
-import { Button } from "./index";
+import { StartButton } from "./index";
 import variables from "../styles/variables";
 
 import {
@@ -14,7 +14,9 @@ const Profile = (props) => {
           <SafeAreaView style={styles.container}>
               <View style={styles.topContainer}>
                     <View style={styles.imageContainer}>
-
+                        <View style={styles.editbutton}>
+                        <Button title="" onPress={() => this.editAvatar()} />
+                        </View>
                     </View>
                     <Text style={styles.nameText}> John Doe </Text>
                     <View style={styles.streakdisplay}>
@@ -27,7 +29,7 @@ const Profile = (props) => {
                     </View>
               </View>
               <View style={styles.badgeContainer}>
-              <Text style={styles.badgeText}> Badges </Text>
+              <Text style={styles.badgeText}> Badges Earned </Text>
                  <ScrollView horizontal={true} style={styles.badgeContainer}>
                     <Image
                     source={require("../assets/badges/world_completion.png")}
@@ -47,7 +49,7 @@ const Profile = (props) => {
                     />                   
                  </ScrollView>
               </View>
-            <Button text="Start" onPress={() => this.goToFire()} />
+            <StartButton text="Start" onPress={() => this.goToFire()} />
           </SafeAreaView>
         );
 }
@@ -77,7 +79,24 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         backgroundColor: variables.palette.blue.primary,
         marginTop: 30,
-        marginBottom: 10
+        marginBottom: 10,
+        shadowOffset: { width: 0, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+        flexDirection: "row-reverse",
+    },
+
+    editbutton:{
+        width: 50,
+        height: 50,
+        borderRadius: 100,
+        backgroundColor: variables.palette.pink.primary,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
     },
 
     badgeText: {

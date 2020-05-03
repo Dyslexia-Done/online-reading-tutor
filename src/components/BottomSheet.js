@@ -5,7 +5,7 @@ import {
 
 
 // internal components
-import { Button } from "./Button";
+import { StartButton } from "./StartButton";
 
 
 // import styles
@@ -84,7 +84,7 @@ export class BottomSheet extends React.Component {
       >
         <Animated.View style={[styles.container, { height, top }]} {...this.panResponders.panHandlers}>
           <View>{children}</View>
-          <Button text="Done" onPress={() => this.props.onDismiss()} />
+          <StartButton text="Done" onPress={() => this.props.onDismiss()} />
         </Animated.View>
       </Modal>
     );

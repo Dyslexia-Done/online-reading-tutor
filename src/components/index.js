@@ -1,4 +1,4 @@
 // component exports
-export { Button } from "./Button";
+export { StartButton } from "./StartButton";
 export { Game } from "./Game";
 export { BottomSheet } from "./BottomSheet";

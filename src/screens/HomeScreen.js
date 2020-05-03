@@ -4,7 +4,7 @@ import {
 } from "react-native";
 
 // internal components
-import { Button, BottomSheet } from "../components/index";
+import { StartButton, BottomSheet } from "../components/index";
 
 
 const instructions = Platform.select({
@@ -59,19 +59,19 @@ class HomeScreen extends React.Component {
         <Text style={styles.welcome}>Welcome to the Reading Tutor!</Text>
         <Text style={styles.instructions}>To get started, click here!</Text>
         <Text style={styles.instructions}>{instructions}</Text>
-        <Button
+        <StartButton
           text="Click here to go to the Lessons page"
           onPress={() => this.props.navigation.navigate("Lessons")}
         />
-        <Button
+        <StartButton
           text="Badges"
           onPress={() => this.props.navigation.navigate("Badges")}
         />
-        <Button
+        <StartButton
           text="Profile"
           onPress={() => this.props.navigation.navigate("Profile")}
         />
-        <Button
+        <StartButton
           text="click here for modal"
           onPress={() => this.toggleEditState()}
         />
