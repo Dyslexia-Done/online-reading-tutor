@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   title: {
-    margin: 5,
+    marginTop: 15,
     fontSize: 25,
     color: variables.palette.purple.primary,
     fontWeight: "bold",
