@@ -3,6 +3,7 @@ import Constants from "../components/Constants.js";
 import { StyleSheet, Text, View, Button, Alert, ScrollView, TouchableOpacity } from "react-native";
 import { alertBadgeAcquired } from "../components/BadgeHelpers";
 import Sound from "react-native-sound";
+import { useState } from 'react';
 /*TODO:
 
 1. Use better data structure for question and answers 
@@ -12,25 +13,12 @@ import Sound from "react-native-sound";
 */
 
 
-  showArrayItem = (item) => {
-
-    Alert.alert(item);
-
-  }
-
-
 sound = new Sound ('./dobe.wav');
 PlaySound=(item)=>{
    this.sound.play();
 
   Alert.alert(item);
 }
-
-ClearScreen=(item)=>{
-
-  Alert.alert(item);
-}
-
 
 function LessonScreen(props) {
 
@@ -48,30 +36,38 @@ function LessonScreen(props) {
       { question: "mupe", answer: ["mipe", "mupe", "mape"]}
 
     ];
-
+  const [index, setIndex] = useState(0);
+  const current = q_and_a[index];
+  console.log(current);
   return (
-       <View style={styles.MainContainer}>
-        <ScrollView>
-          {
-            this.q_and_a.map((item, key) => (
-              <TouchableOpacity>
-
-                <Text style={styles.TextStyle} onPress={PlaySound.bind(this, item.question)} >  {item.question} </Text>
-
-                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-                <Text style={styles.TextStyle} onPress={ ClearScreen.bind(this, item.answer[0]) } >  {item.answer[0]} </Text>
-                <Text style={styles.TextStyle} onPress={ ClearScreen.bind(this, item.answer[1]) } >  {item.answer[1]} </Text>
-                <Text style={styles.TextStyle} onPress={ ClearScreen.bind(this, item.answer[2]) } >  {item.answer[2]} </Text>
-                </View>
-                <View style={{ width: '100%', height: 1, backgroundColor: '#000' }} />
-
-              </TouchableOpacity>
-
-            ))
-            
-          } 
-        </ScrollView>
-
+      <View style={styles.MainContainer}>
+       <Text style={styles.TextStyle} onPress={PlaySound.bind(this, current.question)} >{current.question}</Text>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <Text style={styles.TextStyle} onPress={() => {
+                                          if(current.answer[0]===current.question){
+                                           setIndex(index + 1);
+                                          } else {
+                                            Alert.alert("Try again!");
+                                          }
+                                        }} 
+                                        > {current.answer[0]} </Text>
+          <Text style={styles.TextStyle} onPress={() => {
+                                          if(current.answer[1]===current.question){
+                                           setIndex(index + 1);
+                                          } else {
+                                            Alert.alert("Try again!");
+                                          }
+                                        }} 
+                                        > {current.answer[1]} </Text>
+          <Text style={styles.TextStyle} onPress={() => {
+                                          if(current.answer[2]===current.question){
+                                           setIndex(index + 1);
+                                          } else {
+                                            Alert.alert("Try again!");
+                                          }
+                                        }} 
+                                        > {current.answer[2]} </Text>
+        </View>
       </View>
   );
 }
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
  },
 
  TextStyle:{
-   fontSize : 25,
+   fontSize : 30,
     textAlign: 'center'
  }
  
