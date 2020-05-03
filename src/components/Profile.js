@@ -17,6 +17,7 @@ const Profile = (props) => {
                         <View style={styles.editbutton}>
                         <Button title="" onPress={() => this.editAvatar()} />
                         </View>
+                        
                     </View>
                     <Text style={styles.nameText}> John Doe </Text>
                     <View style={styles.streakdisplay}>
@@ -85,6 +86,22 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
         flexDirection: "row-reverse",
+    },
+
+
+    profilePic: {
+        width: 70,
+        height: 100,
+    },
+
+    profileBodyParts:{
+        width: 70,
+        height: 50,
+    },
+
+    bodyPart: {
+        width: 70,
+        height: 100,
     },
 
     editbutton:{
