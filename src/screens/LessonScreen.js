@@ -2,7 +2,6 @@ import * as React from "react";
 import Constants from "../components/Constants.js";
 import { StyleSheet, Text, View, Button, Alert, ScrollView, TouchableOpacity } from "react-native";
 import { alertBadgeAcquired } from "../components/BadgeHelpers";
-import Sound from "react-native-sound";
 import { useState } from 'react';
 /*TODO:
 
@@ -13,9 +12,8 @@ import { useState } from 'react';
 */
 
 
-sound = new Sound ('./dobe.wav');
 PlaySound=(item)=>{
-   this.sound.play();
+
 
   Alert.alert(item);
 }
