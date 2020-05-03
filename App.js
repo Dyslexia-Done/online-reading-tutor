@@ -15,7 +15,7 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 
 // import styles
 import variables from "./src/styles/variables";
-import * as DataObject from "./src/components/NewConstants";
+import * as DataObject from "./src/components/Database";
 import { startUp } from "./src/components/Helpers";
 
 const Stack = createStackNavigator();

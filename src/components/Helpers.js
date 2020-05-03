@@ -1,7 +1,7 @@
 import * as React from "react";
 // import constants
 import Constants from "./Constants";
-import * as DataObject from "./NewConstants";
+import * as DataObject from "./Database";
 // Import asyncstorage
 import AsyncStorage from "@react-native-community/async-storage";
 

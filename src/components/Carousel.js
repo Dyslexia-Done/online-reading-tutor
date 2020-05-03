@@ -8,7 +8,7 @@ import {
 import Carousel from "react-native-snap-carousel";
 // local components
 import { Button } from "./index";
-import * as DataObject from "./NewConstants";
+import * as DataObject from "./Database";
 import { setCurrentLessonParentWorld } from "./Helpers";
 import Constants from './Constants';
 
