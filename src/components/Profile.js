@@ -449,4 +449,28 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap"
     },
+    bottomBodyPart: {
+        marginTop:20,
+        marginRight: 50,
+        marginLeft:5
+      },
+      profileBodyPartTop: {
+        marginTop:20,
+        marginRight: 50,
+        marginLeft:5,
+        marginBottom:50
+      },
+      topBodyPart: {
+        height:75,
+        width:100,
+        marginRight: 25,
+        marginLeft:25
+      },
+      profileBodyParts: {
+        width: 60,
+        height: 60,
+        marginTop:80,
+        marginRight: 50,
+        marginLeft:45,
+      }
 });
