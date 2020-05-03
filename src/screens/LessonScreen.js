@@ -1,8 +1,8 @@
 import * as React from "react";
 import Constants from "../components/Constants.js";
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, ScrollView, TouchableOpacity } from "react-native";
 import { alertBadgeAcquired } from "../components/BadgeHelpers";
-
+import Sound from "react-native-sound";
 /*TODO:
 
 1. Use better data structure for question and answers 
@@ -11,35 +11,68 @@ import { alertBadgeAcquired } from "../components/BadgeHelpers";
 4. keep track of when all 20 questions are complete (award badge at this point)
 */
 
-SampleFunction=(item)=>{
+
+  showArrayItem = (item) => {
+
+    Alert.alert(item);
+
+  }
+
+
+sound = new Sound ('./dobe.wav');
+PlaySound=(item)=>{
+   this.sound.play();
 
   Alert.alert(item);
 }
 
+ClearScreen=(item)=>{
+
+  Alert.alert(item);
+}
+
+
 function LessonScreen(props) {
 
-  var array = ["dobe", "dobe", "dode", "doke"];
+  q_and_a = [
+
+      { question: "dode", answer: ["dode", "dobe", "doke"]},
+      { question: "jafe", answer: ["jase", "jafe", "jale"]},
+      { question: "taje", answer: ["taje", "tade", "tabe"]},
+      { question: "loce", answer: ["loze", "lote", "loce"]},
+      { question: "bele", answer: ["bebe", "bele", "beke"]},
+      { question: "jafe", answer: ["jase", "jafe", "jale"]},
+      { question: "rike", answer: ["rike", "roke", "ruke"]},
+      { question: "gake", answer: ["gace", "guke", "gake"]},
+      { question: "pebe", answer: ["pabe", "pebe", "pibe"]},
+      { question: "mupe", answer: ["mipe", "mupe", "mape"]}
+
+    ];
 
   return (
-    <View>
-      <Text>Lesson Simulation</Text>
+       <View style={styles.MainContainer}>
+        <ScrollView>
+          {
+            this.q_and_a.map((item, key) => (
+              <TouchableOpacity>
 
-       { array.map((item, key)=>(
-         <Text key={key} style={styles.TextStyle} onPress={ SampleFunction.bind(this, item) }> { item } </Text>)
-      )}
+                <Text style={styles.TextStyle} onPress={PlaySound.bind(this, item.question)} >  {item.question} </Text>
 
-      <Button
-        title="Click here to finish lesson (go back to home screen)"
-        onPress={() => {
-          alertBadgeAcquired(Constants.LESSON_COMPLETION_ID);
-          props.navigation.navigate("Home");
-          props.badgeUpdate.updateBadgeState(
-            Constants.LESSON_COMPLETION,
-            Constants.LESSON_COMPLETION_1
-          );
-        }}
-      ></Button>
-    </View>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                <Text style={styles.TextStyle} onPress={ ClearScreen.bind(this, item.answer[0]) } >  {item.answer[0]} </Text>
+                <Text style={styles.TextStyle} onPress={ ClearScreen.bind(this, item.answer[1]) } >  {item.answer[1]} </Text>
+                <Text style={styles.TextStyle} onPress={ ClearScreen.bind(this, item.answer[2]) } >  {item.answer[2]} </Text>
+                </View>
+                <View style={{ width: '100%', height: 1, backgroundColor: '#000' }} />
+
+              </TouchableOpacity>
+
+            ))
+            
+          } 
+        </ScrollView>
+
+      </View>
   );
 }
 
