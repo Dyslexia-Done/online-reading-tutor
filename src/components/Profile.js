@@ -8,66 +8,66 @@ import variables from "../styles/variables";
 import {
     renderWorldBadges,
 } from "../components/Helpers.js";
+import { render } from "react-dom";
 
-const Profile = (props) => {
-    return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.topContainer}>
-                <View style={styles.imageContainer}>
-                <View style={styles.profileContainer}>
-                        <ImageBackground
-                            style={styles.profilePic}
-                            source={require('../assets/avatar/body.png')}>
-                            <Image
-                                style={styles.profileBodyParts}
-                                source={require('../assets/avatar/mid/cyclops.png')} />
-                            <Image
-                                style={styles.bodyPart}
-                                source={require('../assets/avatar/bottom/toothy.png')} />
-                        </ImageBackground>
+export default class Profile extends React.Component {
+    render(){
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.topContainer}>
+                    <View style={styles.imageContainer}>
+                        <View style={styles.profileContainer}>
+                            <ImageBackground
+                                style={styles.profilePic}
+                                source={require('../assets/avatar/body.png')}>
+                                <Image
+                                    style={styles.profileBodyParts}
+                                    source={require('../assets/avatar/mid/cyclops.png')} />
+                                <Image
+                                    style={styles.bodyPart}
+                                    source={require('../assets/avatar/bottom/toothy.png')} />
+                            </ImageBackground>
+                        </View>
+                        <View style={styles.editbutton}>
+                            <Button title="" onPress={() => this.editAvatar()} />
+                        </View>
                     </View>
-                    <View style={styles.editbutton}>
-                        <Button title="" onPress={() => this.editAvatar()} />
+                    <Text style={styles.nameText}> John Doe </Text>
+                    <View style={styles.streakdisplay}>
+                        <View style={styles.streakContainer}>
+
+                        </View>
+                        <View style={styles.streakContainer}>
+
+                        </View>
                     </View>
                 </View>
-                <Text style={styles.nameText}> John Doe </Text>
-                <View style={styles.streakdisplay}>
-                    <View style={styles.streakContainer}>
-
-                    </View>
-                    <View style={styles.streakContainer}>
-
-                    </View>
+                <View style={styles.badgeContainer}>
+                    <Text style={styles.badgeText}> Badges Earned </Text>
+                    <ScrollView horizontal={true} style={styles.badgeContainer}>
+                        <Image
+                            source={require("../assets/badges/world_completion.png")}
+                            style={styles.ImageIconStyle}
+                        />
+                        <Image
+                            source={require("../assets/badges/world_completion.png")}
+                            style={styles.ImageIconStyle}
+                        />
+                        <Image
+                            source={require("../assets/badges/world_completion.png")}
+                            style={styles.ImageIconStyle}
+                        />
+                        <Image
+                            source={require("../assets/badges/world_completion.png")}
+                            style={styles.ImageIconStyle}
+                        />
+                    </ScrollView>
                 </View>
-            </View>
-            <View style={styles.badgeContainer}>
-                <Text style={styles.badgeText}> Badges Earned </Text>
-                <ScrollView horizontal={true} style={styles.badgeContainer}>
-                    <Image
-                        source={require("../assets/badges/world_completion.png")}
-                        style={styles.ImageIconStyle}
-                    />
-                    <Image
-                        source={require("../assets/badges/world_completion.png")}
-                        style={styles.ImageIconStyle}
-                    />
-                    <Image
-                        source={require("../assets/badges/world_completion.png")}
-                        style={styles.ImageIconStyle}
-                    />
-                    <Image
-                        source={require("../assets/badges/world_completion.png")}
-                        style={styles.ImageIconStyle}
-                    />
-                </ScrollView>
-            </View>
-            <StartButton text="Start" onPress={() => this.goToFire()} />
-        </SafeAreaView>
-    );
+                <StartButton text="Start" onPress={() => this.goToFire()} />
+            </SafeAreaView>
+        );
+    }
 }
-
-export default Profile;
-
 
 const styles = StyleSheet.create({
     container: {
