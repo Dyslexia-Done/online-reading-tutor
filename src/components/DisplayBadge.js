@@ -26,6 +26,10 @@ const DisplayBadge = (props) => {
   // ...
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Lesson badges</Text>
+      <ScrollView horizontal={true} style={styles.badgeContainer}>
+        {renderLessonImages(props.badges[Constants.LESSON_COMPLETION])}
+      </ScrollView>
       <Text style={styles.title}>World badges</Text>
       <ScrollView horizontal={true} style={styles.badgeContainer}>
         {renderWorldBadges(props.badges[Constants.WORLD_COMPLETION])}
@@ -33,10 +37,6 @@ const DisplayBadge = (props) => {
       <Text style={styles.title}>Streak badges</Text>
       <ScrollView horizontal={true} style={styles.badgeContainer}>
         {renderStreakImages(props.badges[Constants.STREAKS])}
-      </ScrollView>
-      <Text style={styles.title}>Lesson badges</Text>
-      <ScrollView horizontal={true} style={styles.badgeContainer}>
-        {renderLessonImages(props.badges[Constants.LESSON_COMPLETION])}
       </ScrollView>
     </View>
   );
