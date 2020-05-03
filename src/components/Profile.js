@@ -144,7 +144,7 @@ export default class Profile extends React.Component {
                             </ImageBackground>
                         </View>
                         <View style={styles.editbutton}>
-                            <Button title="" onPress={() => this.editAvatar()} />
+                            <Button title="" onPress={() => this.this.toggleEditState()} />
                         </View>
                     </View>
                     <Text style={styles.nameText}> John Doe </Text>
