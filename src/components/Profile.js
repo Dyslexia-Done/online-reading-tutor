@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, Image, Button, ImageBackground } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, Image, Button, ImageBackground, Dimensions } from "react-native";
 
 // local components
-import { StartButton } from "./index";
+import { StartButton, BottomSheet } from "./index";
 import variables from "../styles/variables";
 
 import {
@@ -11,119 +11,26 @@ import {
 import { render } from "react-dom";
 
 export default class Profile extends React.Component {
+
     constructor(props) {
         super();
-        this.showImageFunc = this.showImageFunc.bind(this);
-        this.showEyeImageFunc = this.showEyeImageFunc.bind(this);
-        this.showMouthImageFunc = this.showMouthImageFunc.bind(this);
-        this.selectTopImage = this.selectTopImage.bind(this);
         this.state = {
-          editMode: false,
-          showImage: false,
-          showEyeImage: false,
-          showMouthImage: false,
-          topImage: 0,
-          midImage:0,
-          bottomImage:0,
-          topImageFinal: 0,
-          midImageFinal:0,
-          bottomImageFinal:0,
-          hair : null,
-          eyes : null,
-          mouth : null,
-          hairTextColour : "#333333",
-          eyeTextColour: "#333333",
-          mouthTextColour: "#333333",
-          Top : [
-            {
-              "image": require("../assets/avatar/top/brain.png")
-            },
-            {
-              "image": require("../assets/avatar/top/hair.png")
-            }
-         ],
-        Mid : [
-            {
-                "image": require('../assets/avatar/mid/cyclops.png')
-            },
-            {
-                "image": require('../assets/avatar/mid/goofy.png')
-            },
-            {
-                "image": require('../assets/avatar/mid/scared.png')
-            }
-         ],
-         Bottom : [
-            {
-                "image": require("../assets/avatar/bottom/toothy.png")
-            },
-            {
-                "image": require("../assets/avatar/bottom/vamp.png")
-            }
-         ]
-            
+          editMode: false
         };
-          
-    }
+      }
 
     toggleEditState() {
         this.setState((prevState) => {
           const newState = !prevState.editMode;
           return {
-          editMode: newState,
-          showImage:false,
-              showEyeImage: false,
-                showMouthImage: false
-              
+            editMode: newState
           };
         });
       }
-        
-      showImageFunc = () => {
-          this.setState({hair:"underline",eye:null,mouth:null,hairTextColour:"white", eyeTextColour: "#333333", mouthTextColour:  "#333333"});
-          this.setState({showImage: true});
-          this.setState({showEyeImage: false});
-          this.setState({showMouthImage: false});
-      }
-      showEyeImageFunc = () => {
-          this.setState({hair:null,eye:"underline",mouth:null,eyeTextColour:"white", hairTextColour:  "#333333", mouthTextColour:  "#333333"});
-          this.setState({showEyeImage: true});
-          this.setState({showImage: false});
-          this.setState({showMouthImage: false});
-          
-      }
-      showMouthImageFunc = () => {
-          this.setState({hair:null,eye:null,mouth:"underline",mouthTextColour:"white",hairTextColour: "#333333",eyeTextColour:  "#333333"});
-          this.setState({showMouthImage: true});
-          this.setState({showEyeImage: false});
-          this.setState({showImage: false});
-      }
-      selectTopImage = (index) => {
-          this.setState({topImage: index});
-      }
-      selectMidImage = (index) => {
-          this.setState({midImage: index});
-      }
-      selectBottomImage = (index) => {
-          this.setState({bottomImage: index});
-      }
-        
-      displayAvatar = () => {
-          this.setState({hair:null,eye:null,mouth:null,hairTextColour: "#333333", eyeTextColour: "#333333", mouthTextColour:  "#333333"});
-          this.setState({topImageFinal: this.state.topImage});
-          this.setState({midImageFinal: this.state.midImage});
-          this.setState({bottomImageFinal: this.state.bottomImage});
-          this.toggleEditState();
-    }
-      cancelSave = () => {
-          this.setState({hair:null,eye:null,mouth:null,hairTextColour: "#333333", eyeTextColour: "#333333", mouthTextColour:  "#333333"});
-          this.setState({topImage: this.state.topImageFinal});
-          this.setState({midImage: this.state.midImageFinal});
-          this.setState({bottomImage: this.state.bottomImageFinal});
-          this.toggleEditState();
-    }
-
+    
     render(){
+        const { editMode } = this.state;
+        const modalHeight = 2 * (Dimensions.get("screen").height / 3);
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.topContainer}>
@@ -141,7 +48,7 @@ export default class Profile extends React.Component {
                             </ImageBackground>
                         </View>
                         <View style={styles.editbutton}>
-                            <Button title="" onPress={() => this.editAvatar()} />
+                            <Button title="" onPress={() => this.toggleEditState()} />
                         </View>
                     </View>
                     <Text style={styles.nameText}> John Doe </Text>
@@ -175,7 +82,10 @@ export default class Profile extends React.Component {
                         />
                     </ScrollView>
                 </View>
-                <StartButton text="Start" onPress={() => this.goToFire()} />
+                <StartButton text="Start" onPress={() => this.toggleEditState()} />
+                <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
+          <Text>Modal Child</Text>
+        </BottomSheet>
             </SafeAreaView>
         );
     }
