@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, Image, Button, ImageBackground } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, Image, Button, ImageBackground, Dimensions, TouchableOpacity } from "react-native";
 
 // local components
-import { StartButton } from "./index";
+import { StartButton, BottomSheet } from "./index";
 import variables from "../styles/variables";
 
 import {
@@ -124,6 +124,9 @@ export default class Profile extends React.Component {
     }
 
     render() {
+        const { editMode } = this.state;
+        const modalHeight = 2 * (Dimensions.get("screen").height * 0.25);
+
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.topContainer}>
@@ -176,10 +179,97 @@ export default class Profile extends React.Component {
                     </ScrollView>
                 </View>
                 <StartButton text="Start" onPress={() => this.goToFire()} />
+
+
+                <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
+                    <View style={styles.tabContainer}>
+                        <TouchableOpacity onPress={() => this.showImageFunc()}>
+                            <Text style={{ fontSize: 25, color: this.state.hairTextColour, textDecorationLine: this.state.hair }}>Hair</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.showEyeImageFunc()}>
+                            <Text style={{ fontSize: 25, color: this.state.eyeTextColour, textDecorationLine: this.state.eye }}>Eyes</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.showMouthImageFunc()}>
+                            <Text style={{ fontSize: 25, color: this.state.mouthTextColour, textDecorationLine: this.state.mouth }}>Mouth</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.imageTabContainer}>
+                        {this.state.showImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectTopImage(0)}>
+                                    <Image style={styles.topBodyPart}
+                                        source={require('../assets/avatar/top/brain.png')} />
+                                </TouchableOpacity>
+                            </View>}
+
+                        {this.state.showImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectTopImage(1)}>
+                                    <Image style={styles.topBodyPart}
+                                        source={require('../assets/avatar/top/hair.png')} />
+                                </TouchableOpacity>
+                            </View>}
+
+                        {this.state.showEyeImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectMidImage(0)}>
+                                    <Image
+                                        source={require('../assets/avatar/mid/cyclops.png')} />
+                                </TouchableOpacity>
+                            </View>}
+
+                        {this.state.showEyeImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectMidImage(1)}>
+                                    <Image
+                                        source={require('../assets/avatar/mid/goofy.png')} />
+                                </TouchableOpacity>
+                            </View>}
+
+                        {this.state.showEyeImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectMidImage(2)}>
+                                    <Image
+                                        source={require('../assets/avatar/mid/scared.png')} />
+                                </TouchableOpacity>
+                            </View>}
+
+                        {this.state.showMouthImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectBottomImage(0)}>
+                                    <Image style={styles.bottomBodyPart}
+                                        source={require('../assets/avatar/bottom/toothy.png')} />
+                                </TouchableOpacity>
+
+                            </View>}
+
+                        {this.state.showMouthImage &&
+                            <View>
+                                <TouchableOpacity onPress={() => this.selectBottomImage(1)}>
+                                    <Image style={styles.bottomBodyPart}
+                                        source={require('../assets/avatar/bottom/vamp.png')} />
+                                </TouchableOpacity>
+                            </View>}
+
+                    </View>
+                    <View>
+                        <Button
+                            text="Save"
+                            onPress={() => this.displayAvatar()}
+                        />
+                        <Button
+                            text="Cancel"
+                            onPress={() => this.cancelSave()}
+                        />
+
+                    </View>
+                </BottomSheet>
             </SafeAreaView>
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
