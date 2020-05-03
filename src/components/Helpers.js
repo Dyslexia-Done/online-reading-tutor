@@ -237,18 +237,34 @@ export const updateStreaksCount = () => {
   // "streak_duration" is the duration which signifies an addition to the streak count
   // Since we've opted for daily logins, it should be 24 * 60 * 60 seconds
   let streak_duration = 24 * 60 * 60;
-  if(current_timestamp - last_logged_in > streak_duration) {
+  if(current_timestamp - last_logged_in >= streak_duration &&
+     current_timestamp - last_logged_in < 2 * streak_duration) {
     // Update the last logged in timestamp
     DataObject.Data.streak.last_logged_in = current_timestamp;
     DataObject.Data.streak.streak_count += 1;
     return true;
   }
+  // If user skipped a day, then we need to reset the streak count,
+  // and store it back. But we'll use the new timestamp
+  else if(current_timestamp - last_logged_in >= 2 * streak_duration) {
+    DataObject.Data.streak.last_logged_in = current_timestamp;
+    DataObject.Data.streak.streak_count = 0;
+    return true;
+  }
+
   return false;
 }
 
 export const checkAndIssueStreaksBadge = () => {
-  // debugger;
+  // If all badges have been aquired, then simply return
+  if (DataObject.Data.BADGES[Constants.STREAKS][0].badgeState &&
+      DataObject.Data.BADGES[Constants.STREAKS][1].badgeState &&
+      DataObject.Data.BADGES[Constants.STREAKS][2].badgeState) {
+    return;
+  }
+
   let count = DataObject.Data.streak.streak_count;
+
   // Index to badges array
   // [0] -> 5 day streak
   // [1] -> 10 day streak
@@ -256,16 +272,28 @@ export const checkAndIssueStreaksBadge = () => {
 
   switch(count) {
     case 5: 
+      // If the badgeState has already been updated, then we can simply return
+      if(DataObject.Data.BADGES[Constants.STREAKS][0].badgeState) {
+        return;
+      }
       DataObject.Data.BADGES[Constants.STREAKS][0].badgeState = Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[Constants.STREAKS][0].badgeImage = Constants.STREAKS_5_DAY_IMG_RAW;
       alertBadgeAcquired("You have received a 5-day streak badge");
       break;
     case 10:
+      // If the badgeState has already been updated, then we can simply return
+      if(DataObject.Data.BADGES[Constants.STREAKS][1].badgeState) {
+        return;
+      }
       DataObject.Data.BADGES[Constants.STREAKS][1].badgeState = Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[Constants.STREAKS][1].badgeImage = Constants.STREAKS_10_DAY_IMG_RAW;
       alertBadgeAcquired("you have received a 10-day streak badge");
       break;
     case 15:
+      // If the badgeState has already been updated, then we can simply return
+      if(DataObject.Data.BADGES[Constants.STREAKS][2].badgeState) {
+        return;
+      }
       DataObject.Data.BADGES[Constants.STREAKS][2].badgeState = Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[Constants.STREAKS][2].badgeImage = Constants.STREAKS_15_DAY_IMG_RAW;
       alertBadgeAcquired("You have received a 15-day streak badge");
