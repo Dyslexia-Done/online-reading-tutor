@@ -233,6 +233,10 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate("Badges")}
         />
         <Button
+          text="Profile"
+          onPress={() => this.props.navigation.navigate("Profile")}
+        />
+        <Button
           text="click here to edit your avatar"
           onPress={() => this.toggleEditState()}
         />

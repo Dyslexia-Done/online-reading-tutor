@@ -23,6 +23,7 @@ export default variables = {
       darkest: "#74004E"
     },
     gray: {
+      light: "#0F0E15",
       uiBackground: "#211E24" // mid/dark
     },
     white: {

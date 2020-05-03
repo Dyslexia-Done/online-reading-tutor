@@ -12,6 +12,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import LessonMapScreen from "./src/screens/LessonMapScreen";
 import LessonScreen from "./src/screens/LessonScreen";
 import MinigameScreen from "./src/screens/MinigameScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 
 // import styles
 import variables from "./src/styles/variables";
@@ -64,6 +65,11 @@ function App() {
         <Stack.Screen name="Badges">
           {(props) => (
             <BadgeScreen {...props} badges={DataObject.Data.BADGES} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Profile">
+          {(props) => (
+            <ProfileScreen {...props} badges={DataObject.Data.BADGES} />
           )}
         </Stack.Screen>
       </Stack.Navigator>
