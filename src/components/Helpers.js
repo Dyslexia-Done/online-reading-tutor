@@ -162,9 +162,9 @@ export const renderWorldBadges = (world_props) => {
         key={world_props[i].badgeName}
         source={returnImgForRawImgName(world_props[i].badgeImage)}
         style={{
-          margin: 5,
           width: 100,
-          height: 100,
+          height: 120,
+          margin: 10,
           opacity: world_props[i].badgeState ? 1 : 0.5,
         }}
       />
@@ -182,9 +182,9 @@ export const renderStreakImages = (streak_props) => {
         key={streak_props[i].badgeName}
         source={returnImgForRawImgName(streak_props[i].badgeImage)}
         style={{
-          margin: 5,
           width: 100,
-          height: 100,
+          height: 120,
+          margin: 10,
           opacity: streak_props[i].badgeState ? 1 : 0.5,
         }}
       />
@@ -203,9 +203,9 @@ export const renderLessonImages = (lesson_props) => {
         key={lesson_props[i].badgeName}
         source={returnImgForRawImgName(lesson_props[i].badgeImage)}
         style={{
-          margin: 5,
           width: 100,
-          height: 100,
+          height: 120,
+          margin: 10,
           opacity: lesson_props[i].badgeState ? 1 : 0.5,
         }}
       />

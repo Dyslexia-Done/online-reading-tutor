@@ -5,6 +5,9 @@ import { Text, View, Button, StyleSheet, Image } from "react-native";
 // Export displaybadge component
 import DisplayBadge from "../components/DisplayBadge";
 
+// import styles
+import variables from "../styles/variables";
+
 // Simplest Case for now:
 // Badge to be "given" upon completion of lesson
 
@@ -35,10 +38,7 @@ import DisplayBadge from "../components/DisplayBadge";
 const BadgeScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Badges!</Text>
-      <Text style={styles.subtitle}>
-        Scroll horizontally to see all badges!
-      </Text>
+      <Text style={styles.title}>Badge Collection</Text>
 
       <DisplayBadge badges={props.badges} />
 
@@ -64,18 +64,18 @@ export default BadgeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "black",
   },
   title: {
     margin: 5,
-    alignSelf: "center",
+    fontSize: 25,
+    color: variables.palette.purple.primary,
     fontWeight: "bold",
-    fontSize: 30,
+    marginLeft: 15,
+    marginBottom: 30
   },
   subtitle: {
     margin: 20,
-    alignSelf: "center",
-    fontWeight: "bold",
     fontSize: 15,
   },
 });

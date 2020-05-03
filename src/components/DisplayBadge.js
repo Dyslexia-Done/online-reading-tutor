@@ -14,6 +14,9 @@ import {
   renderLessonImages,
 } from "../components/Helpers.js";
 
+// import styles
+import variables from "../styles/variables";
+
 const DisplayBadge = (props) => {
   // props is the badges object:
   // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
@@ -22,7 +25,7 @@ const DisplayBadge = (props) => {
   //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
   // ...
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>World badges</Text>
       <ScrollView horizontal={true} style={styles.badgeContainer}>
         {renderWorldBadges(props.badges[Constants.WORLD_COMPLETION])}
@@ -44,20 +47,17 @@ export default DisplayBadge;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "black",
+    marginLeft: 5
   },
   badgeContainer: {
-    margin: 20,
-    height: 110,
-    flexDirection: "row",
-  },
-  ImageIconStyle: {
-    width: 200,
-    height: 200,
+    height: 130,
+    marginBottom: 5
   },
   title: {
-    alignSelf: "center",
-    fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
+    color: "white",
+    marginLeft: 10,
+    marginBottom: 5
   },
 });
