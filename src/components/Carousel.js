@@ -78,7 +78,7 @@ export default class CarouselCards extends React.Component  {
                     disabled={!DataObject.Data.lesson_completion_per_world[item.short_key]["world_unlocked"]}
                     onPress= {() =>  this.goToFire()}>
                       <Text style={{ color: 'white' }}>
-                        {item.unlocked ? "Explore The "+ item.title : "World Locked"}
+                        {DataObject.Data.lesson_completion_per_world[item.short_key]["world_unlocked"] ? "Explore The "+ item.title : "World Locked"}
                       </Text>
                   </TouchableOpacity>
               </View>
